@@ -23,14 +23,7 @@ handleSearch('')
 <template>
   <div>
     <sub-nav />
-    
-    <!-- 提示选择分类 -->
-    <div v-if="!catelog" class="text-center m-y-2em">
-      <p>Please select a category to view the articles.</p>
-    </div>
-    
-    <!-- 显示文章总数 -->
-    <div v-else class="flex items-center m-y-2em">
+    <div class="flex items-center m-y-2em">
       <div class="flex-auto border-b-1 border-dashed border-current op-30" />
       <div class="m-x-1em">
         A total of <b> {{ searchResult?.total_count || '?' }} </b> articles
