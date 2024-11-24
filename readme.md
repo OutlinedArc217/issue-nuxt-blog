@@ -22,3 +22,7 @@
 - 🌐 个人网站：[http://www.uwu-o3o.us.kg/]
 
 谢谢你访问我的博客！希望你能在这里找到你感兴趣的内容。让我们一起享受每个精彩的瞬间吧！✨
+
+## 关于本项目
+
+本项目原作者及开源地址 [chansee97/issue-nuxt-blog](https://github.com/chansee97/issue-nuxt-blog/)
