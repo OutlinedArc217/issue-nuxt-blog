@@ -2,17 +2,19 @@
 import { searchIssues } from '@/api'
 
 const route = useRoute()
-const catelog = route.params.catelog as string
+const catelog = route.params.catelog || 'All'
 
 useHead({
-  title: catelog || 'All',
+  title: catelog,
 })
 
 const searchResult = ref()
 const issueList = ref()
 
 async function handleSearch(q: string) {
-  const { data } = catelog ? await searchIssues(q, { milestone: catelog }) : await searchIssues(q)
+  const { data } = catelog !== 'All' 
+    ? await searchIssues(q, { milestone: catelog }) 
+    : await searchIssues(q)
   searchResult.value = data.value
   issueList.value = insertYearToPosts(data.value?.items)
 }
