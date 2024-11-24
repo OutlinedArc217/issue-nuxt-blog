@@ -7,7 +7,7 @@ const { VITE_OWNER, VITE_BLOGS_REPO } = import.meta.env
 
 /* 获取README */
 export const getReadme = () => {
-  return useGithubFetch<Readme>(`https://api.github.com/repos/${VITE_OWNER}/${VITE_OWNER}/readme`)
+  return useGithubFetch<Readme>(`https://api.github.com/repos/${VITE_OWNER}/${VITE_BLOGS_REPO}/readme`)
 }
 
 /* 获取issue */
