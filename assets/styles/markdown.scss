@@ -1,0 +1,211 @@
+.prose {
+
+  /* common var */
+  --common-transition: all 0.3s ease;
+  --common-rd: 6px;
+  --common-bg: #69a79429;
+  --common-bd:#c9c7c2;
+
+  max-width: 65em;
+  margin: auto;
+
+  /* 代码高亮 */
+  .hljs {
+      background-color: var(--common-bg) !important;
+    }
+
+  /* toc样式 */
+  .table-of-contents > ul{
+    list-style: none;
+  }
+
+  /* headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin-left: -1em;
+    & > a {
+      opacity: 0;
+      transition: var(--common-transition);
+      text-decoration: none;
+    }
+
+    &:hover > a {
+      opacity: 0.7;
+    }
+  }
+
+  h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1em;
+  }
+
+  h6 {
+    font-size: 1em;
+  }
+
+  /* list */
+  ul,
+  ol {
+    padding-left: 2em;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  .contains-task-list {
+    padding-left: 0;
+    list-style-type: none;
+
+    input[type='checkbox'] {
+      margin: 0 0.5em;
+    }
+  }
+
+  /* p */
+  p {
+    margin-block: 0.8em;
+    word-break: break-word;
+  }
+
+  /* anchor */
+  a {
+    text-decoration: underline var(--common-bd);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+    transition: var(--common-transition);
+
+    &:hover {
+      text-decoration-color: currentcolor;
+    }
+  }
+
+  /* code */
+  pre,
+  code {
+    font-family: 'Fira Mono', ui-monospace, monospace;
+  }
+
+  pre {
+    margin: 0.5em 0;
+    overflow-x: auto;
+    border-radius: var(--common-rd);
+
+    .line {
+      display: block;
+      min-height: 1em;
+    }
+  }
+
+  :not(pre) > code {
+    padding-inline: 0.3em;
+    font-weight: bold;
+    background-color: var(--common-bg);
+    border-radius: 3px;
+  }
+
+  /* blockquote */
+  blockquote {
+    padding: 5px 1em;
+    font-style: italic;
+    background-color: var(--common-bg);
+    border-color: var(--common-bg);
+    border-left-width: 0.4em;
+    border-radius: var(--common-rd);
+
+    > p {
+      margin: 0.5em 0;
+    }
+  }
+
+  /* hr */
+  hr {
+    width: 200px;
+    margin: 2.5em auto;
+    border-color: currentcolor;
+    border-style: dashed;
+    opacity: 0.2;
+  }
+
+  /* img */
+  img {
+    margin: 2em auto;
+    max-width: 100%;
+    border-radius: var(--common-rd);
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    margin-block: 1em;
+    border-radius: var(--common-rd);
+    overflow: hidden;
+
+    th {
+      text-align: center;
+    }
+
+    th,
+    td {
+      padding: 0.3em 0.8em;
+    }
+
+    thead {
+      background-color: var(--common-bg);
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--common-bg);
+    }
+  }
+
+  /* other */
+  sup {
+    padding: 0 0.3em;
+
+    &::before {
+      content: '[';
+    }
+
+    &::after {
+      content: ']';
+    }
+  }
+}
