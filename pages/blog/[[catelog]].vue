@@ -1,25 +1,39 @@
 <script setup lang="ts">
 import { searchIssues } from '@/api'
+import { watch, ref } from 'vue'
+import { useRoute, useHead } from 'vue-router'
 
 const route = useRoute()
-const catelog = route.params.catelog || 'All'
+// 设置初始分类，默认值为 'All'
+const catelog = ref(route.params.catelog || 'All')
 
 useHead({
-  title: catelog,
+  title: catelog.value,
 })
 
 const searchResult = ref()
 const issueList = ref()
 
+// 搜索函数
 async function handleSearch(q: string) {
-  const { data } = catelog !== 'All' 
-    ? await searchIssues(q, { milestone: catelog }) 
+  const { data } = catelog.value !== 'All' 
+    ? await searchIssues(q, { milestone: catelog.value }) 
     : await searchIssues(q)
   searchResult.value = data.value
   issueList.value = insertYearToPosts(data.value?.items)
 }
 
+// 初次加载
 handleSearch('')
+
+// 监听路由参数变化
+watch(
+  () => route.params.catelog,
+  (newCatelog) => {
+    catelog.value = newCatelog || 'All'
+    handleSearch('') // 重新触发搜索
+  },
+)
 </script>
 
 <template>
