@@ -1,24 +1,34 @@
 <script setup lang="ts">
 import { searchIssues } from '@/api'
+import { watch, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const catelog = route.params.catelog || 'All' // 默认值为 'All'
-
-useHead({
-  title: catelog,
-})
-
+const catelog = ref(route.params.catelog || 'All') // 使用 ref 动态绑定分类
 const searchResult = ref()
 const issueList = ref()
 
+useHead(() => ({
+  title: catelog.value || 'All',
+}))
+
 async function handleSearch(q: string) {
-  const { data } = catelog !== 'All' ? await searchIssues(q, { milestone: catelog }) : await searchIssues(q)
+  const { data } = catelog.value !== 'All'
+    ? await searchIssues(q, { milestone: catelog.value })
+    : await searchIssues(q)
   searchResult.value = data.value
   issueList.value = insertYearToPosts(data.value?.items)
 }
 
-// 初次加载时调用
-handleSearch('')
+// 监听路由参数变化
+watch(
+  () => route.params.catelog,
+  (newCatelog) => {
+    catelog.value = newCatelog || 'All' // 更新分类
+    handleSearch('') // 重新加载数据
+  },
+  { immediate: true } // 初始化时立即触发
+)
 </script>
 
 <template>
