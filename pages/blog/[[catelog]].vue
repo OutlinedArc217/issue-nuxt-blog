@@ -1,40 +1,36 @@
 <script setup lang="ts">
 import { searchIssues } from '@/api'
-import { watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const catelog = ref(route.params.catelog || 'All') // 使用 ref 动态绑定分类
+const catelog = route.params.catelog as string
+
+useHead({
+  title: catelog || 'All',
+})
+
 const searchResult = ref()
 const issueList = ref()
 
-useHead(() => ({
-  title: catelog.value || 'All',
-}))
-
 async function handleSearch(q: string) {
-  const { data } = catelog.value !== 'All'
-    ? await searchIssues(q, { milestone: catelog.value })
-    : await searchIssues(q)
+  const { data } = catelog ? await searchIssues(q, { milestone: catelog }) : await searchIssues(q)
   searchResult.value = data.value
   issueList.value = insertYearToPosts(data.value?.items)
 }
 
-// 监听路由参数变化
-watch(
-  () => route.params.catelog,
-  (newCatelog) => {
-    catelog.value = newCatelog || 'All' // 更新分类
-    handleSearch('') // 重新加载数据
-  },
-  { immediate: true } // 初始化时立即触发
-)
+handleSearch('')
 </script>
 
 <template>
   <div>
     <sub-nav />
-    <div class="flex items-center m-y-2em">
+    
+    <!-- 提示选择分类 -->
+    <div v-if="!catelog" class="text-center m-y-2em">
+      <p>Please select a category to view the articles.</p>
+    </div>
+    
+    <!-- 显示文章总数 -->
+    <div v-else class="flex items-center m-y-2em">
       <div class="flex-auto border-b-1 border-dashed border-current op-30" />
       <div class="m-x-1em">
         A total of <b> {{ searchResult?.total_count || '?' }} </b> articles
